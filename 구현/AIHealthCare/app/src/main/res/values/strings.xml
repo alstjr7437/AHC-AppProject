@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AI Health Care</string>
+    <string-array name="work">
+        <item>상</item>
+        <item>중</item>
+        <item>하</item>
+    </string-array>
+</resources>
