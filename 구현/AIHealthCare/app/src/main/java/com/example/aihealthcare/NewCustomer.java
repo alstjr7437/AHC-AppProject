@@ -27,14 +27,13 @@ public class NewCustomer extends AppCompatActivity {
 
     EditText etName, etCall, etId2, etPwd2, etPwd3, etHeight, etWeight;
     String name, call, id, pwd, height, weight, ability;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_customer);
 
-
+        //아이디 가져오기
         etName = (EditText) findViewById(R.id.etName);
         etCall = (EditText) findViewById(R.id.etCall);
         etId2 = (EditText) findViewById(R.id.etId2);
@@ -58,7 +57,7 @@ public class NewCustomer extends AppCompatActivity {
             }
         });
 
-        //날짜 가져오기
+        //날짜 가져오기(실패)
 //        CalendarView calendarView = findViewById(R.id.calendarView);
 //        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 //            @Override
@@ -66,7 +65,8 @@ public class NewCustomer extends AppCompatActivity {
 //                date = year + "/" + (month+1) + "/" + day;
 //            }
 //        });
-
+        
+        //저장 버튼 클릭시 이동 및 데이터 저장
         Button btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +86,7 @@ public class NewCustomer extends AppCompatActivity {
 
     }
 
+    //데이터 저장하는 메서드
     public void dataInsert(String name, String call, String id, String pwd, String height, String weight, String ability){
         new Thread(){
             public void run(){

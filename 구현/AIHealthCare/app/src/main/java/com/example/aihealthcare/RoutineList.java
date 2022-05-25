@@ -3,6 +3,7 @@ package com.example.aihealthcare;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -19,38 +19,36 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MainWork extends AppCompatActivity {
+public class RoutineList extends AppCompatActivity {
 
-    MainActivity main = new MainActivity();
+    MainWork mainWork = new MainWork();
     Handler handler = new Handler();
-    static String rname;
-
+    static String[] Result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_work);
+        setContentView(R.layout.activity_routine_list);
 
-        dataSearch();       //시작할때 루틴 받아와서 넣도록
+        dataSearch();
 
-        TextView tvName2 = (TextView) findViewById(R.id.tvName2);
-        tvName2.setText(main.name);     //맨위에 회원 이름 나오도록
-
+        TextView tvName2 = (TextView) findViewById(R.id.tvRname);
+        tvName2.setText(mainWork.rname + " 루틴");
     }
 
-    //조회하여 루틴 보여주는 메서드
+    //조회 메서드
     public void dataSearch(){
         new Thread(){
             public void run(){
                 try{
-                    URL setURL = new URL("Http://10.0.2.2/search3.php/");
+                    URL setURL = new URL("Http://10.0.2.2/search4.php/");
                     HttpURLConnection http = (HttpURLConnection) setURL.openConnection();
                     http.setDefaultUseCaches(false);
                     http.setDoInput(true);
                     http.setRequestMethod("POST");
                     http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
-                    Log.e("",main.name);
+                    Log.e("",mainWork.rname);
                     StringBuffer buffer = new StringBuffer();
-                    buffer.append("name").append("=").append(main.name);
+                    buffer.append("name").append("=").append(mainWork.rname);
                     OutputStreamWriter outStream = new OutputStreamWriter(http.getOutputStream(),"UTF-8");
                     outStream.write(buffer.toString());
                     outStream.flush();
@@ -64,39 +62,33 @@ public class MainWork extends AppCompatActivity {
                         builder.append(str + "\n");
                     }
                     String resultData = builder.toString();
-                    //< 이후를 끊어서 뒷부분 버리기
                     int idx = resultData.indexOf("<");
                     String sRes = resultData.substring(0,idx);
                     final String[] sResult = sRes.split("/");
 
-                    //핸들러로 안에 어댑터붙여넣고 하기
                     handler.post(new Runnable(){
                         public void run() {
 
                             ListView listview;
-                            ListViewAdapter adapter;
+                            ListViewAdapter2 adapter;
 
                             //adapter 생성
-                            adapter = new ListViewAdapter();
+                            adapter = new ListViewAdapter2();
 
                             //리스트 뷰 들고오기 및 adapter달기
-                            listview = (ListView) findViewById(R.id.listview);
+                            listview = (ListView) findViewById(R.id.listview2);
                             listview.setAdapter(adapter);
-                            
-                            //반복문을 이용한 list 붙이기
+
                             for(int i = 0; i < sResult.length; i++){
                                 Log.e("",sResult[i]);
                                 String a = Integer.toString(i+1);
-                                adapter.addItem(a, sResult[i]);
-
+                                //adapter.addItem(ContextCompat.getDrawable(this, R.drawable.work1), sResult[i], a);
                             }
-                            //list 클릭시
                             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView parent, View v, int position, long id) {
                                     ListViewItem item = (ListViewItem) parent.getItemAtPosition(position);
                                     String title = item.getTitle();
-                                    rname = title;
 
                                     Intent intent = new Intent(getApplicationContext(), RoutineList.class);
                                     startActivity(intent);
@@ -113,4 +105,5 @@ public class MainWork extends AppCompatActivity {
             }
         }.start();
     }
+
 }

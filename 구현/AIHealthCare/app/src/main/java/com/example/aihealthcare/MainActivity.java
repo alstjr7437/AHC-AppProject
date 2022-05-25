@@ -17,10 +17,13 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+
 public class MainActivity extends AppCompatActivity {
     EditText etId, etPwd;
     String Id, Pwd;
     Handler handler = new Handler();
+    static String name;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
         Button btnNew = (Button) findViewById(R.id.btnNew);
 
+        //로그인 버튼 클릭시 데이터 조회 및 이동
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dataSearch();
             }
         });
+        //회원가입 버튼 클릭시 이동
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //조회 메서드
+    //조회하여 로그인하는 메서드
     public void dataSearch(){
         new Thread(){
             public void run(){
@@ -83,12 +88,13 @@ public class MainActivity extends AppCompatActivity {
                     if(Id.equals(sResult[0]) && Pwd.equals(sResult[1])){
                         handler.post(new Runnable(){
                             public void run() {
+                                name = sResult[2];
                                 Intent intent = new Intent(getApplicationContext(), MainWork.class);
                                 startActivity(intent);
                             }
                         });
                     }
-                    //틀릴겨우 토스트로 뜨게하기
+                    //틀릴 경우 토스트로 뜨게하기
                     else {
                         handler.post(new Runnable(){
                             public void run() {
@@ -96,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-
                 } catch(Exception e){
                     Log.e("dataSearch()","지정 에러 발생", e);
                 }
