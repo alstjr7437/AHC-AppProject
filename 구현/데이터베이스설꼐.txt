@@ -1,0 +1,15 @@
+운동 exercise
+고유 번호(pk) / 운동 종류 / 운동 부위 / 운동 세부 부위 / 운동 이름 / 설명 / 평균 칼로리 
+enum / kind / part / detail / ename / explain / calories
+루틴
+routine
+고유 번호(pk) / 루틴 이름 / 루틴 부위 / 운동 번호들(fk) 및 회수 / 만든이(fk) / 조회수 
+rnum / rname / rexercise / rcustomer / view
+회원
+customer
+고유 번호(pk) / 이름 / 전화번호 / 아이디 / 비밀번호 / 키 / 몸무게 / 운동능력 / 루틴(fk)
+cnum / cname / tell / id / pwd / height / weight / ability / croutine
+게시판
+board
+고유 번호(pk) / 게시판 종류 / 제목 / 내용 / 댓글 / 조회수 
+bnum / bkind / bname / bdetail / comment / bview
