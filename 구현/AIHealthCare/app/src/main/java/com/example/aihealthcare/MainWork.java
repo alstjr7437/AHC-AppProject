@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,33 @@ public class MainWork extends AppCompatActivity {
         TextView tvName2 = (TextView) findViewById(R.id.tvName2);
         tvName2.setText(main.name);     //맨위에 회원 이름 나오도록
 
+
+        Button btn1 = (Button) findViewById(R.id.btn1);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WorkList.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btn7 = (Button) findViewById(R.id.btn7);
+        btn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btn8 = (Button) findViewById(R.id.btn8);
+        btn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Information.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //조회하여 루틴 보여주는 메서드
@@ -42,13 +70,12 @@ public class MainWork extends AppCompatActivity {
         new Thread(){
             public void run(){
                 try{
-                    URL setURL = new URL("Http://10.0.2.2/search3.php/");
+                    URL setURL = new URL("Http://10.0.2.2/MainSearch.php/");
                     HttpURLConnection http = (HttpURLConnection) setURL.openConnection();
                     http.setDefaultUseCaches(false);
                     http.setDoInput(true);
                     http.setRequestMethod("POST");
                     http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
-                    Log.e("",main.name);
                     StringBuffer buffer = new StringBuffer();
                     buffer.append("name").append("=").append(main.name);
                     OutputStreamWriter outStream = new OutputStreamWriter(http.getOutputStream(),"UTF-8");
@@ -85,7 +112,6 @@ public class MainWork extends AppCompatActivity {
                             
                             //반복문을 이용한 list 붙이기
                             for(int i = 0; i < sResult.length; i++){
-                                Log.e("",sResult[i]);
                                 String a = Integer.toString(i+1);
                                 adapter.addItem(a, sResult[i]);
 

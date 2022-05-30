@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoutineList">
+    tools:context=".WorkList">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,36 +13,40 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="200dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnBack3"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:text="돌아가기" />
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:hint="운동 이름"
+                android:layout_weight="4"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <Button
-                android:id="@+id/btnDelete"
+                android:id="@+id/btnBack4"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="루틴 삭제" />
-        </LinearLayout>
+                android:text="돌아가기" />
 
-        <TextView
-            android:id="@+id/tvRname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:text="" />
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="검색" />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/listview2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AIHealthCare"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Information"
+            android:exported="false" />
+        <activity
+            android:name=".WorkList"
+            android:exported="false" />
+        <activity
             android:name=".RoutineList"
             android:exported="false" />
         <activity

@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     String Id, Pwd;
     Handler handler = new Handler();
     static String name;
+    static String cnum;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(getApplicationContext(), NewCustomer.class);
-                startActivity(intent2);
+                Intent intent = new Intent(getApplicationContext(), NewCustomer.class);
+                startActivity(intent);
             }
         });
     }
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     Id = etId.getText().toString();
                     Pwd = etPwd.getText().toString();
 
-                    URL setURL = new URL("Http://10.0.2.2/search2.php/");
+                    URL setURL = new URL("Http://10.0.2.2/Login.php/");
                     HttpURLConnection http = (HttpURLConnection) setURL.openConnection();
                     http.setDefaultUseCaches(false);
                     http.setDoInput(true);
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         handler.post(new Runnable(){
                             public void run() {
                                 name = sResult[2];
+                                cnum = sResult[3];
                                 Intent intent = new Intent(getApplicationContext(), MainWork.class);
                                 startActivity(intent);
                             }

@@ -5,12 +5,15 @@
       <map>
         <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.279" />
         <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/drawable/ic_launcher_background.xml" value="0.279" />
+        <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/layout/activity_information.xml" value="0.22" />
         <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/layout/activity_main_work.xml" value="0.22" />
         <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/layout/activity_new_customer.xml" value="0.22" />
         <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/layout/activity_routine_list.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/layout/activity_work_list.xml" value="0.32382246376811596" />
         <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/layout/listitem.xml" value="0.32382246376811596" />
         <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/layout/listitem2.xml" value="0.22" />
+        <entry key="..\:/Users/alstj/AndroidStudioProjects/AIHealthCare/app/src/main/res/layout/listitem3.xml" value="0.32382246376811596" />
       </map>
     </option>
   </component>

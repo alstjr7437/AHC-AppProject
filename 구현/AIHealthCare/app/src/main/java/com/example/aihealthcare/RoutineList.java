@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +34,15 @@ public class RoutineList extends AppCompatActivity {
 
         TextView tvName2 = (TextView) findViewById(R.id.tvRname);
         tvName2.setText(mainWork.rname + " 루틴");
+
+        Button btnBack = (Button) findViewById(R.id.btnBack3);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainWork.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //조회 메서드
@@ -40,7 +50,7 @@ public class RoutineList extends AppCompatActivity {
         new Thread(){
             public void run(){
                 try{
-                    URL setURL = new URL("Http://10.0.2.2/search4.php/");
+                    URL setURL = new URL("Http://10.0.2.2/RoutineSearch.php/");
                     HttpURLConnection http = (HttpURLConnection) setURL.openConnection();
                     http.setDefaultUseCaches(false);
                     http.setDoInput(true);
@@ -70,10 +80,10 @@ public class RoutineList extends AppCompatActivity {
                         public void run() {
 
                             ListView listview;
-                            ListViewAdapter2 adapter;
+                            ListViewAdapter adapter;
 
                             //adapter 생성
-                            adapter = new ListViewAdapter2();
+                            adapter = new ListViewAdapter();
 
                             //리스트 뷰 들고오기 및 adapter달기
                             listview = (ListView) findViewById(R.id.listview2);
@@ -82,19 +92,9 @@ public class RoutineList extends AppCompatActivity {
                             for(int i = 0; i < sResult.length; i++){
                                 Log.e("",sResult[i]);
                                 String a = Integer.toString(i+1);
-                                //adapter.addItem(ContextCompat.getDrawable(this, R.drawable.work1), sResult[i], a);
+                                adapter.addItem(a, sResult[i]);
+
                             }
-                            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView parent, View v, int position, long id) {
-                                    ListViewItem item = (ListViewItem) parent.getItemAtPosition(position);
-                                    String title = item.getTitle();
-
-                                    Intent intent = new Intent(getApplicationContext(), RoutineList.class);
-                                    startActivity(intent);
-                                }
-                            });
-
 
                         }
                     });

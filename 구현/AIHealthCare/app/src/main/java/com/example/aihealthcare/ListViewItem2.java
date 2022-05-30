@@ -1,25 +1,27 @@
 package com.example.aihealthcare;
 
-import android.graphics.drawable.Drawable;
 
 public class ListViewItem2 {
-    private Drawable drawableIcon;
-    private String title;
-    private String desc;
+    private String name;
+    private String explain;
+    private String part;
+    private String calories;
 
-    public Drawable getDrawableIcon() {
-        return drawableIcon;
+    public String getName() { return name; }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setDrawableIcon(Drawable drawableIcon) {
-        this.drawableIcon = drawableIcon;
-    }
+    public String getExplain() { return explain; }
 
-    public String getTitle() { return title; }
+    public void setExplain(String explain) { this.explain = explain; }
 
-    public void setTitle(String title) { this.title = title; }
+    public String getPart() { return part; }
 
-    public String getDesc() { return desc; }
+    public void setPart(String part) { this.part = part; }
 
-    public void setDesc(String desc) { this.desc = desc; }
+    public String getCalories() { return calories; }
+
+    public void setCalories(String calories) { this.calories = calories; }
 }

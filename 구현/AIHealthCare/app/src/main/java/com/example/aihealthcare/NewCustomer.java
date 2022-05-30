@@ -25,6 +25,7 @@ import java.net.URL;
 
 public class NewCustomer extends AppCompatActivity {
 
+    Handler handler = new Handler();
     EditText etName, etCall, etId2, etPwd2, etPwd3, etHeight, etWeight;
     String name, call, id, pwd, height, weight, ability;
     
@@ -57,15 +58,24 @@ public class NewCustomer extends AppCompatActivity {
             }
         });
 
-        //날짜 가져오기(실패)
-//        CalendarView calendarView = findViewById(R.id.calendarView);
-//        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//            @Override
-//            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-//                date = year + "/" + (month+1) + "/" + day;
-//            }
-//        });
-        
+        Button btnSame = (Button) findViewById(R.id.btnSame);
+        btnSame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dataSearch();
+
+            }
+        });
+
+        Button btnBack = (Button) findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //저장 버튼 클릭시 이동 및 데이터 저장
         Button btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -91,15 +101,15 @@ public class NewCustomer extends AppCompatActivity {
         new Thread(){
             public void run(){
                 try{
-                    URL setURL = new URL("Http://10.0.2.2/insert2.php/");
+                    URL setURL = new URL("Http://10.0.2.2/NewCustomer.php/");
                     HttpURLConnection http = (HttpURLConnection) setURL.openConnection();
                     http.setDefaultUseCaches(false);
                     http.setDoInput(true);
                     http.setRequestMethod("POST");
                     http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
                     StringBuffer buffer = new StringBuffer();
-                    buffer.append("name").append("=").append(name).append("/").append(call).append("/").append(id).append("/").append(pwd).append("/")
-                            .append(height).append("/").append(weight).append("/").append(ability).append("/");
+                    buffer.append("name").append("=").append(name).append("/").append(call).append("/").append(id).append("/").append(pwd)
+                            .append("/").append(height).append("/").append(weight).append("/").append(ability).append("/");
                     OutputStreamWriter outStream = new OutputStreamWriter(http.getOutputStream(),"UTF-8");
                     outStream.write(buffer.toString());
                     outStream.flush();
@@ -114,6 +124,60 @@ public class NewCustomer extends AppCompatActivity {
                     }
                 } catch(Exception e){
                     Log.e("dataInsert()","지정 에러 발생", e);
+                }
+            }
+        }.start();
+    }
+
+    //아이디 중복 확인
+    public void dataSearch(){
+        new Thread(){
+            public void run(){
+                try{
+                    final String key = etId2.getText().toString();
+                    URL setURL = new URL("Http://10.0.2.2/IdCheck.php/");
+                    HttpURLConnection http = (HttpURLConnection) setURL.openConnection();
+                    http.setDefaultUseCaches(false);
+                    http.setDoInput(true);
+                    http.setRequestMethod("POST");
+                    http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
+                    StringBuffer buffer = new StringBuffer();
+                    buffer.append("name").append("=").append(key);
+                    OutputStreamWriter outStream = new OutputStreamWriter(http.getOutputStream(),"UTF-8");
+                    outStream.write(buffer.toString());
+                    outStream.flush();
+                    InputStreamReader tmp = new InputStreamReader(http.getInputStream(), "UTF-8");
+                    final BufferedReader reader = new BufferedReader(tmp);
+                    StringBuilder builder = new StringBuilder();
+                    //넘겨온 값 가져오기
+                    String str;
+                    while((str = reader.readLine()) != null){
+                        builder.append(str + "\n");
+                    }
+                    String resultData = builder.toString();
+                    final String[] sResult = resultData.split("/");
+                    //text값과 데이터베이스 값 비교해서 출력하기
+                    if(key.equals(sResult[0])){
+                        handler.post(new Runnable(){
+                            public void run() {
+                                TextView tvSame = (TextView) findViewById(R.id.tvSame);
+                                tvSame.setText("사용 불가능 합니다.");
+                                Toast.makeText(NewCustomer.this, "사용 불가능한 아이디입니다.",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    //같은게 없을경우 바꾸기
+                    else {
+                        handler.post(new Runnable(){
+                            public void run() {
+                                TextView tvSame = (TextView) findViewById(R.id.tvSame);
+                                tvSame.setText("사용 가능 합니다.");
+                                Toast.makeText(NewCustomer.this, "사용 가능한 아이디입니다.",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } catch(Exception e){
+                    Log.e("dataSearch()","지정 에러 발생", e);
                 }
             }
         }.start();
